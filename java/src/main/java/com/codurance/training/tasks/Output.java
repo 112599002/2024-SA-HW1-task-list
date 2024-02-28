@@ -10,7 +10,7 @@ public class Output {
         this.writer = printWriter;
     }
 
-    public void showPrompt() {
+    public void Prompt() {
         writer.print("> ");
         writer.flush();
     }
@@ -24,8 +24,33 @@ public class Output {
         writer.println();
     }
 
-    public void showTaskInfo(boolean isDone, long id, String description) {
+    public void taskInfo(boolean isDone, long id, String description) {
         writer.printf("    [%c] %d: %s", (isDone ? 'x' : ' '), id, description);
+        newLine();
+    }
+
+    public void projectNotFound(String project) {
+        writer.printf("Could not find a project with the name \"%s\".", project);
+        newLine();
+    }
+
+    public void taskNotFound(int id) {
+        writer.printf("Could not find a task with an ID of %d.", id);
+        newLine();
+    }
+
+    public void help() {
+        writer.println("Commands:");
+        writer.println("  show");
+        writer.println("  add project <project name>");
+        writer.println("  add task <project name> <task description>");
+        writer.println("  check <task ID>");
+        writer.println("  uncheck <task ID>");
+        writer.println();
+    }
+
+    public void error(String command){
+        writer.printf("I don't know what the command \"%s\" is.", command);
         newLine();
     }
 }

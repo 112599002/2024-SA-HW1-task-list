@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +27,7 @@ public final class TaskListApp implements Runnable {
 
     public void run() {
         while (true) {
-            output.showPrompt();
+            output.Prompt();
             String command;
             try {
                 command = input.nextInput();
@@ -73,7 +71,7 @@ public final class TaskListApp implements Runnable {
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
             output.showln(project.getKey());
             for (Task task : project.getValue()) {
-                output.showTaskInfo(task.isDone(), task.getId(), task.getDescription());
+                output.taskInfo(task.isDone(), task.getId(), task.getDescription());
             }
             output.newLine();
         }
@@ -97,8 +95,7 @@ public final class TaskListApp implements Runnable {
     private void addTask(String project, String description) {
         List<Task> projectTasks = taskList.getProject(project);
         if (projectTasks == null) {
-            String projectNotFound = String.format("Could not find a project with the name \"%s\".", project);
-            output.showln(projectNotFound);
+            output.projectNotFound(project);
             return;
         }
         taskList.addTask(project, description);
@@ -108,8 +105,7 @@ public final class TaskListApp implements Runnable {
         int id = Integer.parseInt(idString);
         Task task = taskList.getTask(id);
         if (task == null) {
-            String taskNotFound = String.format("Could not find a task with an ID of %d.", id);
-            output.showln(taskNotFound);
+            output.taskNotFound(id);
             return;
         }
         taskList.check(task);
@@ -119,26 +115,18 @@ public final class TaskListApp implements Runnable {
         int id = Integer.parseInt(idString);
         Task task = taskList.getTask(id);
         if (task == null) {
-            String taskNotFound = String.format("Could not find a task with an ID of %d.", id);
-            output.showln(taskNotFound);
+            output.taskNotFound(id);
             return;
         }
         taskList.uncheck(task);
     }
 
     private void help() {
-        output.showln("Commands:");
-        output.showln("  show");
-        output.showln("  add project <project name>");
-        output.showln("  add task <project name> <task description>");
-        output.showln("  check <task ID>");
-        output.showln("  uncheck <task ID>");
-        output.newLine();
+        output.help();
     }
 
     private void error(String command) {
-        String error = String.format("I don't know what the command \"%s\" is.", command);
-        output.showln(error);
+        output.error(command);
     }
 
 }
