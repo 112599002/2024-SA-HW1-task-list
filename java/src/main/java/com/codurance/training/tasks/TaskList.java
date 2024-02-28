@@ -14,7 +14,6 @@ public class TaskList {
 
     private long lastTaskId = 0;
 
-
     public TaskList() {}
 
     public Map<String, List<Task>> getAllTasks() {
@@ -26,6 +25,9 @@ public class TaskList {
     }
 
     public List<Task> getProject(String project) {
+        if(!tasks.containsKey(project)) {
+            return null;
+        }
         return Collections.unmodifiableList(tasks.get(project));
     }
 

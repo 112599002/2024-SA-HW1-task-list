@@ -12,12 +12,9 @@ import java.util.Map;
 public final class TaskListApp implements Runnable {
 
     private final TaskList taskList = new TaskList();
-
     private static final String QUIT = "quit";
-
-    private final BufferedReader in;
-    private final PrintWriter out;
-
+    private final Input input;
+    private final Output output;
 
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -26,17 +23,16 @@ public final class TaskListApp implements Runnable {
     }
 
     public TaskListApp(BufferedReader reader, PrintWriter writer) {
-        this.in = reader;
-        this.out = writer;
+        this.input = new Input(reader);
+        this.output = new Output(writer);
     }
 
     public void run() {
         while (true) {
-            out.print("> ");
-            out.flush();
+            output.showPrompt();
             String command;
             try {
-                command = in.readLine();
+                command = input.nextInput();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -75,11 +71,11 @@ public final class TaskListApp implements Runnable {
     private void show() {
         Map<String, List<Task>> tasks = taskList.getAllTasks();
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
-            out.println(project.getKey());
+            output.showln(project.getKey());
             for (Task task : project.getValue()) {
-                out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
+                output.showTaskInfo(task.isDone(), task.getId(), task.getDescription());
             }
-            out.println();
+            output.newLine();
         }
     }
 
@@ -101,8 +97,8 @@ public final class TaskListApp implements Runnable {
     private void addTask(String project, String description) {
         List<Task> projectTasks = taskList.getProject(project);
         if (projectTasks == null) {
-            out.printf("Could not find a project with the name \"%s\".", project);
-            out.println();
+            String projectNotFound = String.format("Could not find a project with the name \"%s\".", project);
+            output.showln(projectNotFound);
             return;
         }
         taskList.addTask(project, description);
@@ -112,8 +108,8 @@ public final class TaskListApp implements Runnable {
         int id = Integer.parseInt(idString);
         Task task = taskList.getTask(id);
         if (task == null) {
-            out.printf("Could not find a task with an ID of %d.", id);
-            out.println();
+            String taskNotFound = String.format("Could not find a task with an ID of %d.", id);
+            output.showln(taskNotFound);
             return;
         }
         taskList.check(task);
@@ -123,26 +119,26 @@ public final class TaskListApp implements Runnable {
         int id = Integer.parseInt(idString);
         Task task = taskList.getTask(id);
         if (task == null) {
-            out.printf("Could not find a task with an ID of %d.", id);
-            out.println();
+            String taskNotFound = String.format("Could not find a task with an ID of %d.", id);
+            output.showln(taskNotFound);
             return;
         }
         taskList.uncheck(task);
     }
 
     private void help() {
-        out.println("Commands:");
-        out.println("  show");
-        out.println("  add project <project name>");
-        out.println("  add task <project name> <task description>");
-        out.println("  check <task ID>");
-        out.println("  uncheck <task ID>");
-        out.println();
+        output.showln("Commands:");
+        output.showln("  show");
+        output.showln("  add project <project name>");
+        output.showln("  add task <project name> <task description>");
+        output.showln("  check <task ID>");
+        output.showln("  uncheck <task ID>");
+        output.newLine();
     }
 
     private void error(String command) {
-        out.printf("I don't know what the command \"%s\" is.", command);
-        out.println();
+        String error = String.format("I don't know what the command \"%s\" is.", command);
+        output.showln(error);
     }
 
 }

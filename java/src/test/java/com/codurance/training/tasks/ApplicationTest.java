@@ -99,6 +99,52 @@ public final class ApplicationTest {
         execute("quit");
     }
 
+    @Test(timeout = 1000) public void
+    project_not_found() throws IOException {
+        execute("show");
+        execute("add task secrets Eat more donuts.");
+
+        readLines("Could not find a project with the name \"secrets\".");
+
+        execute("quit");
+    }
+
+    @Test(timeout = 1000) public void
+    task_not_found() throws IOException {
+        execute("show");
+        execute("check 1");
+
+        readLines("Could not find a task with an ID of 1.");
+
+        execute("quit");
+    }
+
+    @Test(timeout = 1000) public void
+    unknown_command() throws IOException {
+        execute("mystery");
+
+        readLines("I don't know what the command \"mystery\" is.");
+
+        execute("quit");
+    }
+
+    @Test(timeout = 1000) public void
+    need_help() throws IOException {
+        execute("help");
+
+        readLines(
+                "Commands:",
+                "  show",
+                "  add project <project name>",
+                "  add task <project name> <task description>",
+                "  check <task ID>",
+                "  uncheck <task ID>",
+                ""
+        );
+
+        execute("quit");
+    }
+
     private void execute(String command) throws IOException {
         read(PROMPT);
         write(command);
