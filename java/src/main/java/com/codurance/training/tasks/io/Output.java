@@ -1,4 +1,4 @@
-package com.codurance.training.tasks;
+package com.codurance.training.tasks.io;
 
 import java.io.PrintWriter;
 
@@ -13,6 +13,10 @@ public class Output {
     public void Prompt() {
         writer.print("> ");
         writer.flush();
+    }
+
+    public void show(String output) {
+        writer.printf(output);
     }
 
     public void showln(String output) {

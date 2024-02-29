@@ -1,5 +1,13 @@
 package com.codurance.training.tasks;
 
+import com.codurance.training.tasks.io.Input;
+import com.codurance.training.tasks.io.Output;
+import com.codurance.training.tasks.tasklist.Task;
+import com.codurance.training.tasks.tasklist.TaskList;
+import com.codurance.training.tasks.usecase.UseCase;
+import com.codurance.training.tasks.usecase.factory.CommandUseCaseFactory;
+import com.codurance.training.tasks.usecase.factory.UseCaseFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,6 +21,7 @@ public final class TaskListApp implements Runnable {
     private static final String QUIT = "quit";
     private final Input input;
     private final Output output;
+    private final UseCaseFactory useCaseFactory = new CommandUseCaseFactory();
 
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -42,27 +51,10 @@ public final class TaskListApp implements Runnable {
     }
 
     private void execute(String commandLine) {
-        String[] commandRest = commandLine.split(" ", 2);
-        String command = commandRest[0];
-        switch (command) {
-            case "show":
-                show();
-                break;
-            case "add":
-                add(commandRest[1]);
-                break;
-            case "check":
-                checkTask(commandRest[1]);
-                break;
-            case "uncheck":
-                uncheckTask(commandRest[1]);
-                break;
-            case "help":
-                help();
-                break;
-            default:
-                error(command);
-                break;
+        UseCase useCase = useCaseFactory.createUseCase(commandLine);
+        String result = useCase.execute(taskList);
+        if(!result.equals("ok")) {
+            output.show(result);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.codurance.training.tasks;
+package com.codurance.training.tasks.tasklist;
 
 public final class Task {
     private final long id;
