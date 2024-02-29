@@ -5,7 +5,7 @@ import com.codurance.training.tasks.tasklist.TaskList;
 
 import java.util.List;
 
-public class AddTaskUseCase implements UseCase {
+public class AddTaskUseCase implements CommandUseCase {
     private final String project;
     private final String description;
     public AddTaskUseCase(String params) {

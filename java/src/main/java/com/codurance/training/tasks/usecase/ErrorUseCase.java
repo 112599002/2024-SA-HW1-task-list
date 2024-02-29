@@ -2,8 +2,8 @@ package com.codurance.training.tasks.usecase;
 
 import com.codurance.training.tasks.tasklist.TaskList;
 
-public class ErrorUseCase implements UseCase {
-    private String error;
+public class ErrorUseCase implements CommandUseCase {
+    private final String error;
     public ErrorUseCase(String command) {
         this.error = command;
     }

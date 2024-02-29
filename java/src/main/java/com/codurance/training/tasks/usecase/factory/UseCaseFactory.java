@@ -1,8 +1,8 @@
 package com.codurance.training.tasks.usecase.factory;
 
-import com.codurance.training.tasks.usecase.UseCase;
+import com.codurance.training.tasks.usecase.CommandUseCase;
 
 public interface UseCaseFactory {
 
-    public UseCase createUseCase(String commandLine);
+    CommandUseCase createUseCase(String commandLine);
 }

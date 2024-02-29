@@ -3,7 +3,7 @@ package com.codurance.training.tasks.usecase;
 import com.codurance.training.tasks.tasklist.Task;
 import com.codurance.training.tasks.tasklist.TaskList;
 
-public class CheckUseCase implements UseCase {
+public class CheckUseCase implements CommandUseCase {
     private final int taskId;
     public CheckUseCase(String params) {
         taskId = Integer.parseInt(params);

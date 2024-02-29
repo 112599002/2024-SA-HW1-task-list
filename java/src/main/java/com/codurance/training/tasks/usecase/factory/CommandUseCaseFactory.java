@@ -3,7 +3,7 @@ package com.codurance.training.tasks.usecase.factory;
 import com.codurance.training.tasks.usecase.*;
 
 public class CommandUseCaseFactory implements UseCaseFactory{
-    public UseCase createUseCase(String commandLine) {
+    public CommandUseCase createUseCase(String commandLine) {
         String[] commandTokens = commandLine.split(" ", 2);
         String feature = commandTokens[0];
         switch (feature) {
@@ -22,7 +22,7 @@ public class CommandUseCaseFactory implements UseCaseFactory{
         }
     }
 
-    private UseCase addUseCase(String command, String params) {
+    private CommandUseCase addUseCase(String command, String params) {
         String[] commandTokens = params.split(" ", 2);
         String addType = commandTokens[0];
         String remainParams = commandTokens[1];

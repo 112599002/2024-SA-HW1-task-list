@@ -2,13 +2,6 @@ package com.codurance.training.tasks.tasklist;
 
 import java.util.*;
 
-/*
-由於在看原本的 TaskList code 時需要兩種思不斷轉換的思考和看 code
-1. command line 對應的 I/O 動作
-2. TaskList 物件的屬性、方法
-所以有了拆分單純 TaskList 物件和 TaskListApp 的想法。
- */
-
 public class TaskList {
     private final Map<String, List<Task>> tasks = new LinkedHashMap<>();
 

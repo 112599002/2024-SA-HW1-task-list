@@ -6,7 +6,7 @@ import com.codurance.training.tasks.tasklist.TaskList;
 import java.util.List;
 import java.util.Map;
 
-public class ShowUseCase implements UseCase {
+public class ShowUseCase implements CommandUseCase {
     public ShowUseCase() {}
 
     public String execute(TaskList taskList) {
