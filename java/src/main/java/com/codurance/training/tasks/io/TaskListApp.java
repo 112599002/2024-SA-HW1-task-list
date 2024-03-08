@@ -1,8 +1,8 @@
-package com.codurance.training.tasks;
+package com.codurance.training.tasks.io;
 
-import com.codurance.training.tasks.io.Input;
-import com.codurance.training.tasks.io.Output;
-import com.codurance.training.tasks.tasklist.TaskList;
+import com.codurance.training.tasks.entity.TaskList;
+import com.codurance.training.tasks.io.console.ConsoleInput;
+import com.codurance.training.tasks.io.console.ConsoleOutput;
 import com.codurance.training.tasks.usecase.CommandUseCase;
 import com.codurance.training.tasks.usecase.factory.CommandUseCaseFactory;
 import com.codurance.training.tasks.usecase.factory.UseCaseFactory;
@@ -16,8 +16,8 @@ public final class TaskListApp implements Runnable {
 
     private final TaskList taskList = new TaskList();
     private static final String QUIT = "quit";
-    private final Input input;
-    private final Output output;
+    private final ConsoleInput input;
+    private final ConsoleOutput output;
     private final UseCaseFactory useCaseFactory = new CommandUseCaseFactory();
 
     public static void main(String[] args) throws Exception {
@@ -27,8 +27,8 @@ public final class TaskListApp implements Runnable {
     }
 
     public TaskListApp(BufferedReader reader, PrintWriter writer) {
-        this.input = new Input(reader);
-        this.output = new Output(writer);
+        this.input = new ConsoleInput(reader);
+        this.output = new ConsoleOutput(writer);
     }
 
     public void run() {

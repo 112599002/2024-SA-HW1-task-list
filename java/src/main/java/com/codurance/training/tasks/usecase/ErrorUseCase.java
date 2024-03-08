@@ -1,6 +1,6 @@
 package com.codurance.training.tasks.usecase;
 
-import com.codurance.training.tasks.tasklist.TaskList;
+import com.codurance.training.tasks.entity.TaskList;
 
 public class ErrorUseCase implements CommandUseCase {
     private final String error;

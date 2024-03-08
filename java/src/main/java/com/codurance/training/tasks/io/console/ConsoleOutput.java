@@ -1,12 +1,12 @@
-package com.codurance.training.tasks.io;
+package com.codurance.training.tasks.io.console;
 
 import java.io.PrintWriter;
 
-public class Output {
+public class ConsoleOutput {
 
     private final PrintWriter writer;
 
-    public Output(PrintWriter printWriter) {
+    public ConsoleOutput(PrintWriter printWriter) {
         this.writer = printWriter;
     }
 

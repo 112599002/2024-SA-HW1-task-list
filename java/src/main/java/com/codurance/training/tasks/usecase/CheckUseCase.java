@@ -1,7 +1,7 @@
 package com.codurance.training.tasks.usecase;
 
-import com.codurance.training.tasks.tasklist.Task;
-import com.codurance.training.tasks.tasklist.TaskList;
+import com.codurance.training.tasks.entity.Task;
+import com.codurance.training.tasks.entity.TaskList;
 
 public class CheckUseCase implements CommandUseCase {
     private final int taskId;

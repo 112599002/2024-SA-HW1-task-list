@@ -1,10 +1,10 @@
-package com.codurance.training.tasks.tasklist;
+package com.codurance.training.tasks.entity;
 
 import java.util.*;
 
 public class TaskList {
     private final Map<String, List<Task>> tasks = new LinkedHashMap<>();
-
+    private final List<Project> projects = new ArrayList<>();
     private long lastTaskId = 0;
 
     public TaskList() {}
@@ -14,14 +14,16 @@ public class TaskList {
     }
 
     public void addProject(String name) {
-        tasks.put(name, new ArrayList<Task>());
+        projects.add(new Project(name));
     }
 
-    public List<Task> getProject(String project) {
-        if(!tasks.containsKey(project)) {
-            return null;
+    public Project getProject(String projectName) {
+        for (Project projcet : projects) {
+            if (projcet.name().equals(projectName)) {
+                return projcet;
+            }
         }
-        return Collections.unmodifiableList(tasks.get(project));
+        return null;
     }
 
     public void addTask(String project, String description) {

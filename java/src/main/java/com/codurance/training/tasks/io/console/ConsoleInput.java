@@ -1,13 +1,13 @@
-package com.codurance.training.tasks.io;
+package com.codurance.training.tasks.io.console;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class Input {
+public class ConsoleInput {
 
     private final BufferedReader reader;
 
-    public Input(BufferedReader bufferedReader) {
+    public ConsoleInput(BufferedReader bufferedReader) {
         this.reader = bufferedReader;
     }
 
