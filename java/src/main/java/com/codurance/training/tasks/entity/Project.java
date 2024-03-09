@@ -1,5 +1,6 @@
 package com.codurance.training.tasks.entity;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,6 +10,7 @@ public class Project {
 
     public Project(String projectName) {
         this.name = projectName;
+        this.tasks = new ArrayList<>();
     }
 
     public String name() {
@@ -17,5 +19,18 @@ public class Project {
 
     public List<Task> tasks() {
         return Collections.unmodifiableList(tasks);
+    }
+
+    public void addTask(long id, String description) {
+        tasks.add(new Task(id, description, false));
+    }
+
+    public Task getTask(long id) {
+        for (Task task : tasks) {
+            if (task.getId() == id) {
+                return task;
+            }
+        }
+        return null;
     }
 }

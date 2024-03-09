@@ -3,13 +3,16 @@ package com.codurance.training.tasks.entity;
 import java.util.*;
 
 public class TaskList {
-    private final Map<String, List<Task>> tasks = new LinkedHashMap<>();
-    private final List<Project> projects = new ArrayList<>();
+    private List<Project> projects = new ArrayList<>();
     private long lastTaskId = 0;
 
     public TaskList() {}
 
     public Map<String, List<Task>> getAllTasks() {
+        Map<String, List<Task>> tasks = new HashMap<>();
+        for (Project project : projects) {
+            tasks.put(project.name(), project.tasks());
+        }
         return Collections.unmodifiableMap(tasks);
     }
 
@@ -18,39 +21,45 @@ public class TaskList {
     }
 
     public Project getProject(String projectName) {
-        for (Project projcet : projects) {
-            if (projcet.name().equals(projectName)) {
-                return projcet;
+        for (Project project : projects) {
+            if (project.name().equals(projectName)) {
+                return project;
             }
         }
         return null;
     }
 
-    public void addTask(String project, String description) {
-        if(tasks.containsKey(project)) {
-            long newId = newTaskId();
-            tasks.get(project).add(new Task(newId, description, false));
+    public void addTask(String projectName, String description) {
+        Project project = getProject(projectName);
+        if (project == null) {
+            return;
         }
+        long newId = newTaskId();
+        project.addTask(newId, description);
     }
 
     public Task getTask(int taskId) {
-        for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {
-            for (Task task : project.getValue()) {
-                if(task.getId() == taskId) {
-                    return task;
-                }
+        for (Project project : projects) {
+            Task task = project.getTask(taskId);
+            if (task != null) {
+                return task;
             }
         }
         return null;
     }
 
-    public void check(Task task) {
-        task.setDone(true);
+    public void check(int taskId) {
+        Task task = getTask(taskId);
+        if(task != null) {
+            task.setDone(true);
+        }
     }
 
-    public void uncheck(Task task) {
-        task.setDone(false);
-    }
+    public void uncheck(int taskId) {
+        Task task = getTask(taskId);
+        if(task != null) {
+            task.setDone(false);
+        }    }
 
     private long newTaskId() {
         return ++lastTaskId;

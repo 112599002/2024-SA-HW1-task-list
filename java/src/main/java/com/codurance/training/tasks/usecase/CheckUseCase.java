@@ -14,7 +14,7 @@ public class CheckUseCase implements CommandUseCase {
         if (task == null) {
             return String.format("Could not find a task with an ID of %d.%n", taskId);
         }
-        taskList.check(task);
+        taskList.check(taskId);
         return "ok";
     }
 }

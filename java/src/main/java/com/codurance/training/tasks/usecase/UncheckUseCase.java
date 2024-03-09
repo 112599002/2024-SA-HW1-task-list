@@ -14,7 +14,7 @@ public class UncheckUseCase implements CommandUseCase {
         if (task == null) {
             return String.format("Could not find a task with an ID of %d.%n", taskId);
         }
-        taskList.uncheck(task);
+        taskList.uncheck(taskId);
         return "ok";
     }
 }
