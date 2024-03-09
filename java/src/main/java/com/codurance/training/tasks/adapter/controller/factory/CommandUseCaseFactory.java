@@ -29,7 +29,10 @@ public class CommandUseCaseFactory implements UseCaseFactory{
         if(addType.equals("project")) {
             return new AddProjectUseCase(remainParams);
         } else if (addType.equals("task")) {
-            return new AddTaskUseCase(remainParams);
+            String[] remaining = remainParams.split(" ", 2);
+            String project = remaining[0];
+            String description = remaining[1];
+            return new AddTaskUseCase(project, description);
         }
         return new ErrorUseCase(command);
     }

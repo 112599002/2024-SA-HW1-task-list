@@ -5,7 +5,7 @@ import com.codurance.training.tasks.entity.TaskList;
 public class HelpUseCase implements CommandUseCase {
     public HelpUseCase() {}
 
-    public String execute(TaskList taskList) {
+    public String execute() {
         return "Commands:" +
                 System.lineSeparator() +
                 "  show" +

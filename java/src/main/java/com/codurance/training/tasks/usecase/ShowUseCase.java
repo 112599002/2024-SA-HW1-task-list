@@ -9,7 +9,8 @@ import java.util.Map;
 public class ShowUseCase implements CommandUseCase {
     public ShowUseCase() {}
 
-    public String execute(TaskList taskList) {
+    public String execute() {
+        TaskList taskList = TaskList.getTaskList();
         Map<String, List<Task>> tasks = taskList.getAllTasks();
         if(tasks.isEmpty()) {
             return "ok";

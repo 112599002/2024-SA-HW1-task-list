@@ -7,7 +7,7 @@ public class ErrorUseCase implements CommandUseCase {
     public ErrorUseCase(String command) {
         this.error = command;
     }
-    public String execute(TaskList taskList) {
+    public String execute() {
         return String.format("I don't know what the command \"%s\" is.%n", error);
     }
 }

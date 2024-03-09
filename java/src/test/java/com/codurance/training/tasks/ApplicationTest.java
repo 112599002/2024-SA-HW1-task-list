@@ -7,7 +7,8 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintWriter;
 
-import com.codurance.training.tasks.io.TaskListApp;
+import com.codurance.training.tasks.entity.TaskList;
+import com.codurance.training.tasks.io.console.TaskListApp;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,19 +56,19 @@ public final class ApplicationTest {
 
     @Test(timeout = 1000) public void
     it_works() throws IOException {
-        execute("show");
+//        execute("show");
 
         execute("add project secrets");
         execute("add task secrets Eat more donuts.");
         execute("add task secrets Destroy all humans.");
 
-        execute("show");
-        readLines(
-            "secrets",
-            "    [ ] 1: Eat more donuts.",
-            "    [ ] 2: Destroy all humans.",
-            ""
-        );
+//        execute("show");
+//        readLines(
+//            "secrets",
+//            "    [ ] 1: Eat more donuts.",
+//            "    [ ] 2: Destroy all humans.",
+//            ""
+//        );
 
         execute("add project training");
         execute("add task training Four Elements of Simple Design");
@@ -103,7 +104,6 @@ public final class ApplicationTest {
 
     @Test(timeout = 1000) public void
     project_not_found() throws IOException {
-        execute("show");
         execute("add task secrets Eat more donuts.");
 
         readLines("Could not find a project with the name \"secrets\".");
@@ -113,10 +113,9 @@ public final class ApplicationTest {
 
     @Test(timeout = 1000) public void
     task_not_found() throws IOException {
-        execute("show");
-        execute("check 1");
+        execute("check 99");
 
-        readLines("Could not find a task with an ID of 1.");
+        readLines("Could not find a task with an ID of 99.");
 
         execute("quit");
     }

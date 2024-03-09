@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Project {
-    private int id;
+    private final int id;
     private final String name;
     private List<Task> tasks;
 
@@ -13,6 +13,10 @@ public class Project {
         this.id = projectId;
         this.name = projectName;
         this.tasks = new ArrayList<>();
+    }
+
+    public int id() {
+        return this.id;
     }
 
     public String name() {

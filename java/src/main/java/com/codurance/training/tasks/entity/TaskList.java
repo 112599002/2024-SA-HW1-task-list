@@ -4,29 +4,30 @@ import java.util.*;
 
 public class TaskList {
 //    private List<Project> projects = new ArrayList<>();
-    private Map<Integer, Project> projects = new HashMap<>(); // <user added order, Project>
+//private Map<Integer, Project> projects = new HashMap<>(); // <user added order, Project>
+    private List<Project> projects = new ArrayList<>();
     private int lastProjectId = 0;
     private long lastTaskId = 0;
 
-    public TaskList() {}
+    private static TaskList taskList = null;
+
+    private TaskList() {}
 
     public Map<String, List<Task>> getAllTasks() {
-        Map<String, List<Task>> tasks = new HashMap<>();
-        for (Map.Entry<Integer, Project> projectSet : projects.entrySet()) {
-            Project project = projectSet.getValue();
+        Map<String, List<Task>> tasks = new LinkedHashMap<>();
+        for (Project project : projects) {
             tasks.put(project.name(), project.tasks());
         }
-        return Collections.unmodifiableMap(tasks);
+        return tasks;
     }
 
     public void addProject(String name) {
         int projectId = newProjectId();
-        projects.put(projectId, new Project(projectId, name));
+        projects.add(new Project(projectId, name));
     }
 
     public Project getProject(String projectName) {
-        for (Map.Entry<Integer, Project> projectSet : projects.entrySet()) {
-            Project project = projectSet.getValue();
+        for (Project project : projects) {
             if (project.name().equals(projectName)) {
                 return project;
             }
@@ -44,8 +45,7 @@ public class TaskList {
     }
 
     public Task getTask(int taskId) {
-        for (Map.Entry<Integer, Project> projectSet : projects.entrySet()) {
-            Project project = projectSet.getValue();
+        for (Project project : projects) {
             Task task = project.getTask(taskId);
             if (task != null) {
                 return task;
@@ -73,5 +73,20 @@ public class TaskList {
 
     private long newTaskId() {
         return ++lastTaskId;
+    }
+
+    public static TaskList getTaskList() {
+        if (taskList == null) {
+            taskList = new TaskList();
+        }
+        return taskList;
+    }
+
+    public static void clearTaskList() {
+        if(taskList != null) {
+            taskList.projects = new ArrayList<>();
+            taskList.lastTaskId = 0;
+            taskList.lastProjectId = 0;
+        }
     }
 }
