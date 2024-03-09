@@ -5,10 +5,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Project {
+    private int id;
     private final String name;
-    private final List<Task> tasks;
+    private List<Task> tasks;
 
-    public Project(String projectName) {
+    public Project(int projectId, String projectName) {
+        this.id = projectId;
         this.name = projectName;
         this.tasks = new ArrayList<>();
     }

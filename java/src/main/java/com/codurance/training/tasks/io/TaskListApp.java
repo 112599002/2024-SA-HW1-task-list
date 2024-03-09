@@ -4,8 +4,8 @@ import com.codurance.training.tasks.entity.TaskList;
 import com.codurance.training.tasks.io.console.ConsoleInput;
 import com.codurance.training.tasks.io.console.ConsoleOutput;
 import com.codurance.training.tasks.usecase.CommandUseCase;
-import com.codurance.training.tasks.usecase.factory.CommandUseCaseFactory;
-import com.codurance.training.tasks.usecase.factory.UseCaseFactory;
+import com.codurance.training.tasks.adapter.controller.factory.CommandUseCaseFactory;
+import com.codurance.training.tasks.adapter.controller.factory.UseCaseFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;

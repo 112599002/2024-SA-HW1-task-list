@@ -1,4 +1,4 @@
-package com.codurance.training.tasks.usecase.factory;
+package com.codurance.training.tasks.adapter.controller.factory;
 
 import com.codurance.training.tasks.usecase.CommandUseCase;
 

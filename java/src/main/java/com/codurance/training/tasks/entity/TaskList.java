@@ -3,25 +3,30 @@ package com.codurance.training.tasks.entity;
 import java.util.*;
 
 public class TaskList {
-    private List<Project> projects = new ArrayList<>();
+//    private List<Project> projects = new ArrayList<>();
+    private Map<Integer, Project> projects = new HashMap<>(); // <user added order, Project>
+    private int lastProjectId = 0;
     private long lastTaskId = 0;
 
     public TaskList() {}
 
     public Map<String, List<Task>> getAllTasks() {
         Map<String, List<Task>> tasks = new HashMap<>();
-        for (Project project : projects) {
+        for (Map.Entry<Integer, Project> projectSet : projects.entrySet()) {
+            Project project = projectSet.getValue();
             tasks.put(project.name(), project.tasks());
         }
         return Collections.unmodifiableMap(tasks);
     }
 
     public void addProject(String name) {
-        projects.add(new Project(name));
+        int projectId = newProjectId();
+        projects.put(projectId, new Project(projectId, name));
     }
 
     public Project getProject(String projectName) {
-        for (Project project : projects) {
+        for (Map.Entry<Integer, Project> projectSet : projects.entrySet()) {
+            Project project = projectSet.getValue();
             if (project.name().equals(projectName)) {
                 return project;
             }
@@ -39,7 +44,8 @@ public class TaskList {
     }
 
     public Task getTask(int taskId) {
-        for (Project project : projects) {
+        for (Map.Entry<Integer, Project> projectSet : projects.entrySet()) {
+            Project project = projectSet.getValue();
             Task task = project.getTask(taskId);
             if (task != null) {
                 return task;
@@ -61,8 +67,11 @@ public class TaskList {
             task.setDone(false);
         }    }
 
+    private int newProjectId() {
+        return ++lastProjectId;
+    }
+
     private long newTaskId() {
         return ++lastTaskId;
     }
-
 }
