@@ -1,12 +1,12 @@
 package com.codurance.training.tasks.usecase;
 
-import com.codurance.training.tasks.entity.TaskList;
+import com.codurance.training.tasks.usecase.port.UseCaseOutput;
 
-public class HelpUseCase implements CommandUseCase {
+public class HelpUseCase implements UseCase {
     public HelpUseCase() {}
 
-    public String execute() {
-        return "Commands:" +
+    public UseCaseOutput execute() {
+        String message = "Commands:" +
                 System.lineSeparator() +
                 "  show" +
                 System.lineSeparator() +
@@ -19,5 +19,6 @@ public class HelpUseCase implements CommandUseCase {
                 "  uncheck <task ID>" +
                 System.lineSeparator() +
                 System.lineSeparator();
+        return new UseCaseOutput(message);
     }
 }

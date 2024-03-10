@@ -1,8 +1,7 @@
 package com.codurance.training.tasks.io.console;
 
-import com.codurance.training.tasks.usecase.CommandUseCase;
-import com.codurance.training.tasks.adapter.controller.factory.CommandUseCaseFactory;
-import com.codurance.training.tasks.adapter.controller.factory.UseCaseFactory;
+import com.codurance.training.tasks.adapter.controller.ConsoleController;
+import com.codurance.training.tasks.adapter.presenter.ConsolePresenter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +13,7 @@ public final class TaskListApp implements Runnable {
     private static final String QUIT = "quit";
     private final ConsoleInput input;
     private final ConsoleOutput output;
-    private final UseCaseFactory useCaseFactory = new CommandUseCaseFactory();
+    private final ConsoleController controller = new ConsoleController();
 
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -39,15 +38,10 @@ public final class TaskListApp implements Runnable {
             if (command.equals(QUIT)) {
                 break;
             }
-            execute(command);
-        }
-    }
-
-    private void execute(String commandLine) {
-        CommandUseCase useCase = useCaseFactory.createUseCase(commandLine);
-        String result = useCase.execute();
-        if(!result.equals("ok")) {
-            output.show(result);
+            ConsolePresenter presenter = controller.handle(command);
+            if (presenter.isPresent()) {
+                output.show(presenter.getView());
+            }
         }
     }
 

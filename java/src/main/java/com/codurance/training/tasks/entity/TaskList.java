@@ -3,8 +3,6 @@ package com.codurance.training.tasks.entity;
 import java.util.*;
 
 public class TaskList {
-//    private List<Project> projects = new ArrayList<>();
-//private Map<Integer, Project> projects = new HashMap<>(); // <user added order, Project>
     private List<Project> projects = new ArrayList<>();
     private int lastProjectId = 0;
     private long lastTaskId = 0;
@@ -82,11 +80,4 @@ public class TaskList {
         return taskList;
     }
 
-    public static void clearTaskList() {
-        if(taskList != null) {
-            taskList.projects = new ArrayList<>();
-            taskList.lastTaskId = 0;
-            taskList.lastProjectId = 0;
-        }
-    }
 }

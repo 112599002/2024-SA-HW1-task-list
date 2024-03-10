@@ -1,10 +1,25 @@
-package com.codurance.training.tasks.adapter.controller.factory;
+package com.codurance.training.tasks.adapter.controller;
 
+import com.codurance.training.tasks.adapter.presenter.ConsolePresenter;
 import com.codurance.training.tasks.usecase.*;
+import com.codurance.training.tasks.usecase.port.UseCaseOutput;
 
-public class CommandUseCaseFactory implements UseCaseFactory{
-    public CommandUseCase createUseCase(String commandLine) {
-        String[] commandTokens = commandLine.split(" ", 2);
+public class ConsoleController {
+
+    public ConsoleController() {}
+
+    public ConsolePresenter handle(String consoleCommand) {
+        UseCase useCase = createUseCase(consoleCommand);
+        UseCaseOutput useCaseOutput = useCase.execute();
+        String view = useCaseOutput.getOutput();
+        if (view.equals("success.")) {
+            return new ConsolePresenter(false, view);
+        }
+        return new ConsolePresenter(true, view);
+    }
+
+    private UseCase createUseCase(String command) {
+        String[] commandTokens = command.split(" ", 2);
         String feature = commandTokens[0];
         switch (feature) {
             case "show":
@@ -22,7 +37,7 @@ public class CommandUseCaseFactory implements UseCaseFactory{
         }
     }
 
-    private CommandUseCase addUseCase(String command, String params) {
+    private UseCase addUseCase(String command, String params) {
         String[] commandTokens = params.split(" ", 2);
         String addType = commandTokens[0];
         String remainParams = commandTokens[1];

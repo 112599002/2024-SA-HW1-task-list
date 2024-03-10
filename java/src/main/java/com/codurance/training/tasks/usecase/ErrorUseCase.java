@@ -1,13 +1,15 @@
 package com.codurance.training.tasks.usecase;
 
-import com.codurance.training.tasks.entity.TaskList;
+import com.codurance.training.tasks.usecase.port.UseCaseOutput;
 
-public class ErrorUseCase implements CommandUseCase {
+public class ErrorUseCase implements UseCase {
     private final String error;
     public ErrorUseCase(String command) {
         this.error = command;
     }
-    public String execute() {
-        return String.format("I don't know what the command \"%s\" is.%n", error);
+
+    public UseCaseOutput execute() {
+        String message = String.format("I don't know what the command \"%s\" is.%n", error);
+        return new UseCaseOutput(message);
     }
 }
