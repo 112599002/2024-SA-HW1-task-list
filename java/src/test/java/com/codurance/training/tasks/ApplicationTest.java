@@ -56,19 +56,19 @@ public final class ApplicationTest {
 
     @Test(timeout = 1000) public void
     it_works() throws IOException {
-//        execute("show");
+        execute("show");
 
         execute("add project secrets");
         execute("add task secrets Eat more donuts.");
         execute("add task secrets Destroy all humans.");
 
-//        execute("show");
-//        readLines(
-//            "secrets",
-//            "    [ ] 1: Eat more donuts.",
-//            "    [ ] 2: Destroy all humans.",
-//            ""
-//        );
+        execute("show");
+        readLines(
+            "secrets",
+            "    [ ] 1: Eat more donuts.",
+            "    [ ] 2: Destroy all humans.",
+            ""
+        );
 
         execute("add project training");
         execute("add task training Four Elements of Simple Design");

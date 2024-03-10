@@ -33,16 +33,17 @@ public class TaskList {
         return null;
     }
 
-    public void addTask(String projectName, String description) {
+    public long addTask(String projectName, String description) {
         Project project = getProject(projectName);
         if (project == null) {
-            return;
+            return -1;
         }
         long newId = newTaskId();
         project.addTask(newId, description);
+        return newId;
     }
 
-    public Task getTask(int taskId) {
+    public Task getTask(long taskId) {
         for (Project project : projects) {
             Task task = project.getTask(taskId);
             if (task != null) {

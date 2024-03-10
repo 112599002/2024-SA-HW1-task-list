@@ -13,6 +13,10 @@ public class AddProjectUseCase implements UseCase {
     public UseCaseOutput execute() {
         TaskList taskList = TaskList.getTaskList();
         taskList.addProject(projectName);
-        return new UseCaseOutput("success.");
+        if (taskList.getProject(projectName) != null) {
+            return new UseCaseOutput("success.");
+        }
+        String message = String.format("Add project \"%s\" failed.%n", projectName);
+        return new UseCaseOutput(message);
     }
 }

@@ -14,7 +14,7 @@ public class ShowUseCase implements UseCase {
         TaskList taskList = TaskList.getTaskList();
         Map<String, List<Task>> tasks = taskList.getAllTasks();
         if(tasks.isEmpty()) {
-            return new UseCaseOutput("success.");
+            return new UseCaseOutput("");
         }
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<String, List<Task>> project : tasks.entrySet()) {

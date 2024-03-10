@@ -13,12 +13,16 @@ public class CheckUseCase implements UseCase {
 
     public UseCaseOutput execute() {
         TaskList taskList = TaskList.getTaskList();
+        taskList.check(taskId);
         Task task = taskList.getTask(taskId);
         if (task == null) {
             String message = String.format("Could not find a task with an ID of %d.%n", taskId);
             return new UseCaseOutput(message);
         }
-        taskList.check(taskId);
-        return new UseCaseOutput("success.");
+        if (task.isDone()) {
+            return new UseCaseOutput("success.");
+        }
+        String message = String.format("Check task with an ID of %d failedS.%n", taskId);
+        return new UseCaseOutput(message);
     }
 }
