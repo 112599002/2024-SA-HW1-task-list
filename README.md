@@ -1,16 +1,9 @@
-# Task List &nbsp; [![Build Status](https://travis-ci.org/codurance/task-list.png)](https://travis-ci.org/codurance/task-list)
+# Task List
 
-2024/03/03
-- Rearrange classes to following packages.
-  - io: `Input`, `Output`
-  - tasklist: `Task`, `Tasklist`
-  - usecase: `CommandUseCase(Interface)`, polymorphic UseCases
-  - usecase/factory: `UseCaseFactory(Interface)`, `CommandUseCaseFactory`
+2024/03/11
+- Rearrange classes to the following packages. Each class only depends on classes on the same layer or the previous layer 
+  - `entity`: objects from problem (Task List) domain.
+  - `usecase`: objects which manipulate `entity` objects to provide use cases.
+  - `adapter`: controller and presenter objects for creating concrete use case objects, converting console input to the input for use cases, and converting use case output for the console to present.
+  - `io`: for console I/O and console app.
 
-`ui` layer contains framework and user interface.
-
-`adapter` layer contains controller, presenter, view. Convert external form data to internal form used by use cases and entities.
-
-dependency rule: `io`->`adapter`->`usecase`->`entity`
-
-**note: 先從最內層開始做**

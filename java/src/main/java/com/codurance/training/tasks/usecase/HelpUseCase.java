@@ -1,11 +1,14 @@
 package com.codurance.training.tasks.usecase;
 
-import com.codurance.training.tasks.usecase.port.UseCaseOutput;
+import com.codurance.training.tasks.usecase.port.input.HelpInput;
+import com.codurance.training.tasks.usecase.port.output.HelpOutput;
 
-public class HelpUseCase implements UseCase {
+public class HelpUseCase implements UseCase<HelpInput, HelpOutput> {
     public HelpUseCase() {}
 
-    public UseCaseOutput execute() {
+    @Override
+    public HelpOutput execute(HelpInput input) {
+        HelpOutput output = new HelpOutput();
         String message = "Commands:" +
                 System.lineSeparator() +
                 "  show" +
@@ -19,6 +22,7 @@ public class HelpUseCase implements UseCase {
                 "  uncheck <task ID>" +
                 System.lineSeparator() +
                 System.lineSeparator();
-        return new UseCaseOutput(message);
+        output.setMessage(message);
+        return output;
     }
 }

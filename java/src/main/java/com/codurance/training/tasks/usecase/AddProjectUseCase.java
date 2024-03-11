@@ -1,22 +1,31 @@
 package com.codurance.training.tasks.usecase;
 
+import com.codurance.training.tasks.entity.Project;
 import com.codurance.training.tasks.entity.TaskList;
-import com.codurance.training.tasks.usecase.port.UseCaseOutput;
+import com.codurance.training.tasks.usecase.port.input.AddProjectInput;
+import com.codurance.training.tasks.usecase.port.output.AddProjectOutput;
 
-public class AddProjectUseCase implements UseCase {
-    private final String projectName;
+public class AddProjectUseCase implements UseCase<AddProjectInput, AddProjectOutput> {
+    public AddProjectUseCase() {}
 
-    public AddProjectUseCase(String project) {
-        this.projectName = project;
-    }
-
-    public UseCaseOutput execute() {
+    @Override
+    public AddProjectOutput execute(AddProjectInput input) {
+        String projectName = input.getProjectName();
         TaskList taskList = TaskList.getTaskList();
         taskList.addProject(projectName);
-        if (taskList.getProject(projectName) != null) {
-            return new UseCaseOutput("success.");
+
+        Project newProject = taskList.getProject(projectName);
+        AddProjectOutput output = new AddProjectOutput();
+
+        if (newProject == null) {
+            String message = String.format("Add project \"%s\" failed.%n", projectName);
+            output.setProjectId(-1);
+            output.setMessage(message);
+            return output;
         }
-        String message = String.format("Add project \"%s\" failed.%n", projectName);
-        return new UseCaseOutput(message);
+
+        output.setProjectId(newProject.id());
+        output.setMessage("success");
+        return output;
     }
 }

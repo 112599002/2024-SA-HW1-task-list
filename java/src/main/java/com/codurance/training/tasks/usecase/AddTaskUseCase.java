@@ -1,31 +1,39 @@
 package com.codurance.training.tasks.usecase;
 
-import com.codurance.training.tasks.entity.Project;
 import com.codurance.training.tasks.entity.Task;
 import com.codurance.training.tasks.entity.TaskList;
-import com.codurance.training.tasks.usecase.port.UseCaseOutput;
+import com.codurance.training.tasks.usecase.port.input.AddTaskInput;
+import com.codurance.training.tasks.usecase.port.output.AddTaskOutput;
 
-public class AddTaskUseCase implements UseCase {
-    private final String projectName;
-    private final String description;
+public class AddTaskUseCase implements UseCase<AddTaskInput, AddTaskOutput> {
+    public AddTaskUseCase() {}
 
-    public AddTaskUseCase(String project, String description) {
-        this.projectName = project;
-        this.description = description;
-    }
-
-    public UseCaseOutput execute() {
+    @Override
+    public AddTaskOutput execute(AddTaskInput input) {
+        String projectName = input.getProjectName();
+        String description = input.getDescription();
         TaskList taskList = TaskList.getTaskList();
+
         long newTaskId = taskList.addTask(projectName, description);
+        AddTaskOutput output = new AddTaskOutput();
+
         if (newTaskId < 0) {
             String message = String.format("Could not find a project with the name \"%s\".%n", projectName);
-            return new UseCaseOutput(message);
+            output.setTaskId(newTaskId);
+            output.setMessage(message);
+            return output;
         }
+
         Task task = taskList.getTask(newTaskId);
         if (task.getId() == newTaskId) {
-            return new UseCaseOutput("success.");
+            output.setTaskId(newTaskId);
+            output.setMessage("success");
+            return output;
         }
+
         String message = String.format("Add task \"%s\" failed.%n", description);
-        return new UseCaseOutput(message);
+        output.setTaskId(newTaskId);
+        output.setMessage(message);
+        return output;
     }
 }
