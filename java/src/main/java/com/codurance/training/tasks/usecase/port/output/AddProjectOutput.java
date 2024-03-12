@@ -1,8 +1,13 @@
 package com.codurance.training.tasks.usecase.port.output;
 
-public class AddProjectOutput implements UseCaseOutput{
+public class AddProjectOutput implements UseCaseOutput {
     private String message;
     private int projectId;
+
+    @Override
+    public String getOutput() {
+        return getMessage();
+    }
 
     public AddProjectOutput() {}
 

@@ -5,6 +5,8 @@ import com.codurance.training.tasks.usecase.*;
 import com.codurance.training.tasks.usecase.port.output.UseCaseOutput;
 
 public interface ConsoleController {
+    public ConsolePresenter handle(String consoleCommand);
+}
 
 
 //    public ConsoleController() {}
@@ -52,4 +54,3 @@ public interface ConsoleController {
 //        }
 //        return new ErrorUseCase(command);
 //    }
-}

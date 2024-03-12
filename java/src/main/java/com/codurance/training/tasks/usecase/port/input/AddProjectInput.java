@@ -1,6 +1,6 @@
 package com.codurance.training.tasks.usecase.port.input;
 
-public class AddProjectInput implements UseCaseInput{
+public class AddProjectInput implements UseCaseInput {
     private String projectName;
 
     public AddProjectInput() {}

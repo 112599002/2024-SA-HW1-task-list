@@ -1,6 +1,6 @@
 package com.codurance.training.tasks.usecase.port.input;
 
-public class UncheckInput implements UseCaseInput{
+public class UncheckInput implements UseCaseInput {
     private int taskId;
 
     public UncheckInput() {}

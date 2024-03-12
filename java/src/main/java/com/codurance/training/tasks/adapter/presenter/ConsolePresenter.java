@@ -4,8 +4,12 @@ public class ConsolePresenter {
     private final boolean isPresent;
     private final String view;
 
-    public ConsolePresenter(boolean present, String stringView) {
-        this.isPresent = present;
+    public ConsolePresenter(String stringView) {
+        if (stringView.equals("success.")) {
+            this.isPresent = false;
+        } else {
+            this.isPresent = true;
+        }
         this.view = stringView;
     }
 
