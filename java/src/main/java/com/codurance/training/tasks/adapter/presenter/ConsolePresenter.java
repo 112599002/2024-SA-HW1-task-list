@@ -5,11 +5,7 @@ public class ConsolePresenter {
     private final String view;
 
     public ConsolePresenter(String stringView) {
-        if (stringView.equals("success.")) {
-            this.isPresent = false;
-        } else {
-            this.isPresent = true;
-        }
+        this.isPresent = !stringView.equals("success");
         this.view = stringView;
     }
 

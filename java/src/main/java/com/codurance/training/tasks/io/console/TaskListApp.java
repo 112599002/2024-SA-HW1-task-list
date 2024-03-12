@@ -1,5 +1,6 @@
 package com.codurance.training.tasks.io.console;
 
+import com.codurance.training.tasks.adapter.ControllerFactory;
 import com.codurance.training.tasks.adapter.controller.ConsoleController;
 import com.codurance.training.tasks.adapter.presenter.ConsolePresenter;
 
@@ -9,11 +10,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 public final class TaskListApp implements Runnable {
-
     private static final String QUIT = "quit";
     private final ConsoleInput input;
     private final ConsoleOutput output;
-    private final ConsoleController controller = new ConsoleController();
 
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -38,11 +37,11 @@ public final class TaskListApp implements Runnable {
             if (command.equals(QUIT)) {
                 break;
             }
+            ConsoleController controller = ControllerFactory.create(command);
             ConsolePresenter presenter = controller.handle(command);
             if (presenter.isPresent()) {
                 output.show(presenter.getView());
             }
         }
     }
-
 }

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class ConsoleInput {
-
     private final BufferedReader reader;
 
     public ConsoleInput(BufferedReader bufferedReader) {

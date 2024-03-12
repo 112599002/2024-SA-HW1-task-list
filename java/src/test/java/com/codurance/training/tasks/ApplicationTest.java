@@ -7,7 +7,6 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintWriter;
 
-import com.codurance.training.tasks.entity.TaskList;
 import com.codurance.training.tasks.io.console.TaskListApp;
 import org.junit.After;
 import org.junit.Before;
@@ -21,10 +20,8 @@ public final class ApplicationTest {
     public static final String PROMPT = "> ";
     private final PipedOutputStream inStream = new PipedOutputStream();
     private final PrintWriter inWriter = new PrintWriter(inStream, true);
-
     private final PipedInputStream outStream = new PipedInputStream();
     private final BufferedReader outReader = new BufferedReader(new InputStreamReader(outStream));
-
     private Thread applicationThread;
 
     public ApplicationTest() throws IOException {

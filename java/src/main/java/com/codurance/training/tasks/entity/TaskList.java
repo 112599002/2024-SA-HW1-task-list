@@ -6,7 +6,6 @@ public class TaskList {
     private List<Project> projects = new ArrayList<>();
     private int lastProjectId = 0;
     private long lastTaskId = 0;
-
     private static TaskList taskList = null;
 
     private TaskList() {}
