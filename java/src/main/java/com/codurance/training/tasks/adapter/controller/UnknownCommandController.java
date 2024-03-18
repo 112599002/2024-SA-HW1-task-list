@@ -8,14 +8,17 @@ import com.codurance.training.tasks.usecase.port.output.UnknownCommandOutput;
 import com.codurance.training.tasks.usecase.port.output.UseCaseOutput;
 
 public class UnknownCommandController implements ConsoleController {
-    public UnknownCommandController() {}
+    private final UseCase<UnknownCommandInput, UnknownCommandOutput> unknowUseCase;
+
+    public UnknownCommandController(UseCase<UnknownCommandInput, UnknownCommandOutput> unknowUseCase) {
+        this.unknowUseCase = unknowUseCase;
+    }
 
     @Override
     public ConsolePresenter handle(String consoleCommand) {
-        UseCase<UnknownCommandInput, UnknownCommandOutput> useCase = new UnknownCommandUseCase();
         UnknownCommandInput input = new UnknownCommandInput();
         input.setCommand(consoleCommand);
-        UseCaseOutput output = useCase.execute(input);
+        UseCaseOutput output = unknowUseCase.execute(input);
         return new ConsolePresenter(output.getOutput());
     }
 }

@@ -8,12 +8,15 @@ import com.codurance.training.tasks.usecase.port.output.ShowOutput;
 import com.codurance.training.tasks.usecase.port.output.UseCaseOutput;
 
 public class ShowController implements ConsoleController {
-    public ShowController() {}
+    private final UseCase<ShowInput, ShowOutput> showUseCase;
+
+    public ShowController(UseCase<ShowInput, ShowOutput> showUseCase) {
+        this.showUseCase = showUseCase;
+    }
 
     @Override
     public ConsolePresenter handle(String consoleCommand) {
-        UseCase<ShowInput, ShowOutput> useCase = new ShowUseCase();
-        UseCaseOutput output = useCase.execute(new ShowInput());
+        UseCaseOutput output = showUseCase.execute(new ShowInput());
         return new ConsolePresenter(output.getOutput());
     }
 }

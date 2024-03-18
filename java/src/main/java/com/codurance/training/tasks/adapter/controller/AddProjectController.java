@@ -11,25 +11,30 @@ import com.codurance.training.tasks.usecase.port.output.UnknownCommandOutput;
 import com.codurance.training.tasks.usecase.port.output.UseCaseOutput;
 
 public class AddProjectController implements ConsoleController {
-    public AddProjectController() {}
+    private final UseCase<UnknownCommandInput, UnknownCommandOutput> unknowUseCase;
+    private final UseCase<AddProjectInput, AddProjectOutput> addProjectUseCase;
+
+    public AddProjectController(UseCase<UnknownCommandInput, UnknownCommandOutput> unknowUseCase,
+                                UseCase<AddProjectInput, AddProjectOutput> addProjectUseCase) {
+        this.unknowUseCase = unknowUseCase;
+        this.addProjectUseCase = addProjectUseCase;
+    }
 
     @Override
     public ConsolePresenter handle(String consoleCommand) {
         String[] tokens = consoleCommand.split(" ", 3);
 
         if (tokens.length < 3) {
-            UseCase<UnknownCommandInput, UnknownCommandOutput> useCase = new UnknownCommandUseCase();
             UnknownCommandInput input = new UnknownCommandInput();
             input.setCommand(consoleCommand);
-            UseCaseOutput output = useCase.execute(input);
+            UseCaseOutput output = unknowUseCase.execute(input);
             return new ConsolePresenter(output.getOutput());
         }
 
-        UseCase<AddProjectInput, AddProjectOutput> useCase = new AddProjectUseCase();
         String project = tokens[2];
         AddProjectInput input = new AddProjectInput();
         input.setProjectName(project);
-        UseCaseOutput output = useCase.execute(input);
+        UseCaseOutput output = addProjectUseCase.execute(input);
         return new ConsolePresenter(output.getOutput());
     }
 }
