@@ -11,26 +11,15 @@ import com.codurance.training.tasks.usecase.port.output.UnknownCommandOutput;
 import com.codurance.training.tasks.usecase.port.output.UseCaseOutput;
 
 public class AddTaskController implements ConsoleController {
-    private final UseCase<UnknownCommandInput, UnknownCommandOutput> unknowUseCase;
     private final UseCase<AddTaskInput, AddTaskOutput> addTaskUseCase;
 
-    public AddTaskController(UseCase<UnknownCommandInput, UnknownCommandOutput> unknowUseCase,
-                             UseCase<AddTaskInput, AddTaskOutput> addTaskUseCase) {
-        this.unknowUseCase = unknowUseCase;
+    public AddTaskController(UseCase<AddTaskInput, AddTaskOutput> addTaskUseCase) {
         this.addTaskUseCase = addTaskUseCase;
     }
 
     @Override
     public ConsolePresenter handle(String consoleCommand) {
         String[] tokens = consoleCommand.split(" ", 4);
-
-        if (tokens.length < 4) {
-            UnknownCommandInput input = new UnknownCommandInput();
-            input.setCommand(consoleCommand);
-            UseCaseOutput output = unknowUseCase.execute(input);
-            return new ConsolePresenter(output.getOutput());
-        }
-
         String project = tokens[2];
         String description = tokens[3];
         AddTaskInput input = new AddTaskInput();

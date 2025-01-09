@@ -2,11 +2,11 @@ package com.codurance.training.tasks.adapter.presenter;
 
 public class ConsolePresenter {
     private final boolean isPresent;
-    private final String view;
+    private final String consoleView;
 
     public ConsolePresenter(String stringView) {
         this.isPresent = !stringView.equals("success");
-        this.view = stringView;
+        this.consoleView = stringView;
     }
 
     public boolean isPresent() {
@@ -14,6 +14,6 @@ public class ConsolePresenter {
     }
 
     public String getView() {
-        return view;
+        return consoleView;
     }
 }
